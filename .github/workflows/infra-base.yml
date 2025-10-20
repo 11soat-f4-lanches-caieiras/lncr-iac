@@ -1,0 +1,90 @@
+name: Infra Base
+
+env:
+  TERRAFORM_VERSION: 1.5.7
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - modules/ecr/**
+      - modules/eks/**
+      - modules/secrets_manager/**
+      - modules/fsx_openzfs/**
+      - modules/openvpn/**
+      - modules/lambda/**
+      - modules/alb-controller/**
+      - prd.tfvars
+      - .github/workflows/infra-base.yml
+      - locals.tf
+      - main.tf
+      - outputs.tf
+      - providers.tf
+      - variables.tf
+  workflow_dispatch:
+
+
+jobs:
+  deploy-base:
+    name: Deploy Base Infrastructure
+    runs-on: codebuild-github-lncr-iac-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+    - name: Deploy Base Infrastructure
+      run: |
+        terraform init
+        terraform apply \
+          -target=module.vpc \
+          -target=module.eks \
+          -target=module.ecr \
+          -target=module.secrets_manager \
+          -target=module.fsx_openzfs \
+          -target=module.openvpn \
+          -target=module.lambda \
+          -var-file="prd.tfvars" \
+          -auto-approve
+          
+    - name: Trigger lncr-app deployment
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_TOKEN}}
+        repository: 11soat-f3-lanches-caieiras/lncr-app
+        event-type: infra-base-completed
+        client-payload: |
+          {
+            "branch": "${{ github.ref_name }}",
+            "commit": "${{ github.sha }}"
+          }
+          
+    - name: Trigger database deployment
+      uses: peter-evans/repository-dispatch@v2
+      if: github.event_name == 'workflow_dispatch'
+      with:
+        token: ${{ secrets.REPO_TOKEN}}
+        repository: 11soat-f3-lanches-caieiras/lncr-database
+        event-type: infra-base-completed
+        client-payload: |
+          {
+            "branch": "${{ github.ref_name }}",
+            "commit": "${{ github.sha }}"
+          }
+          
+    - name: Trigger custom-authorizer deployment
+      uses: peter-evans/repository-dispatch@v2
+      if: github.event_name == 'workflow_dispatch'
+      with:
+        token: ${{ secrets.REPO_TOKEN}}
+        repository: 11soat-f3-lanches-caieiras/lncr-custom-authorizer
+        event-type: infra-base-completed
+        client-payload: |
+          {
+            "branch": "${{ github.ref_name }}",
+            "commit": "${{ github.sha }}"
+          }
