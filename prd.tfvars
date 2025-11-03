@@ -104,3 +104,10 @@ fsx_storage_capacity      = 64
 fsx_throughput_capacity   = 64
 fsx_deployment_type       = "SINGLE_AZ_1"
 fsx_backup_retention_days = 7
+
+#========================================================================================#
+#                           Secret Provider VARIABLES                                    #
+#========================================================================================#
+
+service_account_name       = "secrets-sa"
+namespace_secrets_provider = "production"

@@ -193,3 +193,20 @@ output "vpc_id" {
   description = "VPC ID"
   value       = module.vpc.vpc_id
 }
+
+#========================================================================================#
+#                                 SECRETS PROVIDER MODULE                                #
+#========================================================================================#
+
+module "clouddog-secrets-provider" {
+  source = "./modules/clouddog-secrets-provider"
+
+  cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
+  namespace                          = var.namespace_secrets_provider
+  cluster_endpoint                   = module.eks.cluster_endpoint
+  cluster_name                       = module.eks.cluster_name
+  service_account_name               = var.service_account_name
+  oidc_provider                      = module.eks.oidc_provider_arn
+  region                             = local.region
+  oidc_provider_id                   = module.eks.oidc_provider
+}

@@ -205,3 +205,16 @@ variable "fsx_backup_retention_days" {
   default     = 7
 }
 
+#========================================================================================#
+#                                  SECRET PROVIDER VARIABLES                             #
+#========================================================================================#
+
+variable "service_account_name" {
+  description = "Nome do Service Account"
+  type        = string
+}
+
+variable "namespace_secrets_provider" {
+  description = "Namespace do Secrets Provider"
+  type        = string
+}
