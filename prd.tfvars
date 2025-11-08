@@ -38,7 +38,7 @@ openvpn_instance_type = "t4g.small"
 #========================================================================================#
 
 cluster_version        = "1.33"
-namespaces             = ["staging", "monitoring", "argocd"]
+namespaces             = ["production", "monitoring", "argocd"]
 instance_type_node_eks = "t3.medium"
 
 #========================================================================================#
