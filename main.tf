@@ -198,8 +198,8 @@ output "vpc_id" {
 #                                 SECRETS PROVIDER MODULE                                #
 #========================================================================================#
 
-module "clouddog-secrets-provider" {
-  source = "./modules/clouddog-secrets-provider"
+module "secrets-provider" {
+  source = "./modules/secrets-provider"
 
   cluster_certificate_authority_data = module.eks.cluster_certificate_authority_data
   namespace                          = var.namespace_secrets_provider
