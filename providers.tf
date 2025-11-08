@@ -34,10 +34,9 @@ provider "aws" {
   region = "us-east-1"
 }
 
-provider "kubernetes" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-
+provider "kubectl" {
+  host                   = module.clouddog-eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.clouddog-eks.cluster_certificate_authority_data)
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
@@ -45,33 +44,32 @@ provider "kubernetes" {
       "eks",
       "get-token",
       "--cluster-name",
-      module.eks.cluster_name
+      module.clouddog-eks.cluster_name
     ]
   }
 }
-
 provider "helm" {
-  kubernetes = {
-    host                   = module.eks.cluster_endpoint
-    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-
-    exec = {
+  kubernetes {
+    host                   = module.clouddog-eks.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.clouddog-eks.cluster_certificate_authority_data)
+    exec {
       api_version = "client.authentication.k8s.io/v1beta1"
       command     = "aws"
       args = [
         "eks",
         "get-token",
         "--cluster-name",
-        module.eks.cluster_name
+        module.clouddog-eks.cluster_name,
+        "--region",
+        local.region
       ]
     }
   }
 }
 
-provider "kubectl" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-
+provider "kubernetes" {
+  host                   = module.clouddog-eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.clouddog-eks.cluster_certificate_authority_data)
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
@@ -79,7 +77,9 @@ provider "kubectl" {
       "eks",
       "get-token",
       "--cluster-name",
-      module.eks.cluster_name
+      module.clouddog-eks.cluster_name,
+      "--region",
+      local.region
     ]
   }
 }

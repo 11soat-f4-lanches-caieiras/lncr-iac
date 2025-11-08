@@ -35,6 +35,10 @@ module "eks" {
   subnet_ids                               = var.private_subnets
   control_plane_subnet_ids                 = var.private_subnets
 
+  compute_config = {
+    enabled = false
+  }
+
   enabled_log_types = [
     "scheduler"
   ]
