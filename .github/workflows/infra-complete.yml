@@ -5,16 +5,16 @@ env:
 
 on:
   push:
-    branches: [ develop ]
-    paths:
-      - modules/api_gateway/**
-      - prd.tfvars
-      - .github/workflows/infra-complete.yml
-      - locals.tf
-      - main.tf
-      - outputs.tf
-      - providers.tf
-      - variables.tf
+    # branches: [ develop ]
+    # paths:
+    #   - modules/api_gateway/**
+    #   - prd.tfvars
+    #   - .github/workflows/infra-complete.yml
+    #   - locals.tf
+    #   - main.tf
+    #   - outputs.tf
+    #   - providers.tf
+    #   - variables.tf
 
   repository_dispatch:
     types: [infra-iac-completed]
