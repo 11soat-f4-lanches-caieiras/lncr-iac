@@ -45,6 +45,7 @@ jobs:
           -target=module.eks \
           -target=module.ecr \
           -target=module.secrets_manager \
+          -target=module.secrets-provider \
           -target=module.fsx_openzfs \
           -target=module.openvpn \
           -target=module.lambda \
