@@ -4,23 +4,23 @@ env:
   TERRAFORM_VERSION: 1.5.7
 
 on:
-  push:
-    # branches: [ develop ]
-    # paths:
-    #   - modules/api_gateway/**
-    #   - prd.tfvars
-    #   - .github/workflows/infra-complete.yml
-    #   - locals.tf
-    #   - main.tf
-    #   - outputs.tf
-    #   - providers.tf
-    #   - variables.tf
+#   push:
+#     # branches: [ develop ]
+#     # paths:
+#     #   - modules/api_gateway/**
+#     #   - prd.tfvars
+#     #   - .github/workflows/infra-complete.yml
+#     #   - locals.tf
+#     #   - main.tf
+#     #   - outputs.tf
+#     #   - providers.tf
+#     #   - variables.tf
 
-  repository_dispatch:
-    types: [infra-iac-completed]
+#   repository_dispatch:
+#     types: [infra-iac-completed]
   workflow_dispatch:
 
-  workflow_call:
+  # workflow_call:
 
 jobs:
   complete-infra:
