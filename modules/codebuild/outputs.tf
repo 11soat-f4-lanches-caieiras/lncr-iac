@@ -1,7 +1,7 @@
-output "codebuild_project_names" {
-  description = "Map of CodeBuild project names"
-  value       = { for k, v in aws_codebuild_project.projects : k => v.name }
-}
+# output "codebuild_project_names" {
+#   description = "Map of CodeBuild project names"
+#   value       = { for k, v in aws_codebuild_project.projects : k => v.name }
+# }
 
 output "codebuild_project_arns" {
   description = "Map of CodeBuild project ARNs"
