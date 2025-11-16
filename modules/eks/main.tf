@@ -50,8 +50,8 @@ module "eks" {
       name = "${var.prefix_name}-${var.environment}"
 
       min_size     = 1
-      max_size     = 1
-      desired_size = 1
+      max_size     = 2
+      desired_size = 2
 
       instance_types = [var.instance_type_node_eks]
       capacity_type  = "ON_DEMAND"
