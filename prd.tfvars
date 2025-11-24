@@ -77,7 +77,7 @@ codebuild_projects = {
   },
   "database" = {
     codebuild_name  = "github-lncr-database"
-    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-db-customer"
+    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-database"
   },
   "custom-authorizer" = {
     codebuild_name  = "github-lncr-custom-authorizer"
