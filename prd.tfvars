@@ -84,8 +84,32 @@ codebuild_projects = {
     github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-custom-authorizer"
   },
   "app" = {
-    codebuild_name  = "github-lncr-app"
+    codebuild_name  = "github-lncr-ms-customer"
     github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-ms-customer"
+  },
+  "ms-food-item" = {
+    codebuild_name  = "github-lncr-ms-food-item"
+    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-ms-food-item"
+  },
+  "ms-kitchen-order" = {
+    codebuild_name  = "github-lncr-ms-kitchen-order"
+    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-ms-kitchen-order"
+  },
+  "ms-oauth" = {
+    codebuild_name  = "github-lncr-ms-oauth"
+    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-ms-oauth"
+  },
+  "ms-notification" = {
+    codebuild_name  = "github-lncr-ms-notification"
+    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-ms-notification"
+  },
+  "ms-payment" = {
+    codebuild_name  = "github-lncr-ms-payment"
+    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-ms-payment"
+  },
+  "ms-customer-order" = {
+    codebuild_name  = "github-lncr-ms-customer-order"
+    github_repo_url = "https://github.com/11soat-f4-lanches-caieiras/lncr-ms-customer-order"
   }
 }
 codebuild_compute_type = "BUILD_GENERAL1_MEDIUM"
