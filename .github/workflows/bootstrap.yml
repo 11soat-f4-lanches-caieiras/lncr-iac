@@ -38,8 +38,8 @@ jobs:
           -var-file="prd.tfvars" \
           -auto-approve
 
-    - name: Output CodeBuild Name
+    - name: Output CodeBuild Names
       run: |
-        echo "CodeBuild project created: $(terraform output -raw codebuild_project_name)"
-        echo "Update your main workflow to use this CodeBuild project"
+        echo "CodeBuild projects created: $(terraform output -json codebuild_project_names)"
+        echo "Update your main workflow to use these CodeBuild projects"
 
