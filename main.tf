@@ -160,6 +160,33 @@ module "secrets_manager" {
   environment_name = local.environment_name
 
   recovery_window_in_days = var.secrets_manager_recovery_window
+  
+  # Application secrets
+  customer_external_url = var.customer_external_url
+  food_item_external_url = var.food_item_external_url
+  mongodb_uri = var.mongodb_uri
+  food_item_postgres_url = var.food_item_postgres_url
+  food_item_postgres_user = var.food_item_postgres_user
+  food_item_postgres_password = var.food_item_postgres_password
+  kitchen_order_postgres_url = var.kitchen_order_postgres_url
+  kitchen_order_postgres_user = var.kitchen_order_postgres_user
+  kitchen_order_postgres_password = var.kitchen_order_postgres_password
+  notification_postgres_url = var.notification_postgres_url
+  notification_postgres_user = var.notification_postgres_user
+  notification_postgres_password = var.notification_postgres_password
+  payment_postgres_url = var.payment_postgres_url
+  payment_postgres_user = var.payment_postgres_user
+  payment_postgres_password = var.payment_postgres_password
+  customer_order_postgres_url = var.customer_order_postgres_url
+  customer_order_postgres_user = var.customer_order_postgres_user
+  customer_order_postgres_password = var.customer_order_postgres_password
+  mercadopago_oauth_url = var.mercadopago_oauth_url
+  mercadopago_orders_url = var.mercadopago_orders_url
+  mercadopago_client_id = var.mercadopago_client_id
+  mercadopago_secret_id = var.mercadopago_secret_id
+  mercadopago_pos_id = var.mercadopago_pos_id
+  mercadopago_expiration_time = var.mercadopago_expiration_time
+  mercadopago_webhook_secret = var.mercadopago_webhook_secret
 }
 
 #========================================================================================#
