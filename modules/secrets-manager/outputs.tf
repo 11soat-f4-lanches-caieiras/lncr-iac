@@ -1,14 +1,14 @@
-output "secret_arn" {
-  description = "ARN of the secret"
-  value       = aws_secretsmanager_secret.main.arn
+output "secret_arns" {
+  description = "ARNs of the application secrets"
+  value       = { for k, v in aws_secretsmanager_secret.app_secrets : k => v.arn }
 }
 
-output "secret_id" {
-  description = "ID of the secret"
-  value       = aws_secretsmanager_secret.main.id
+output "secret_ids" {
+  description = "IDs of the application secrets"
+  value       = { for k, v in aws_secretsmanager_secret.app_secrets : k => v.id }
 }
 
-output "secret_name" {
-  description = "Name of the secret"
-  value       = aws_secretsmanager_secret.main.name
+output "secret_names" {
+  description = "Names of the application secrets"
+  value       = { for k, v in aws_secretsmanager_secret.app_secrets : k => v.name }
 }
