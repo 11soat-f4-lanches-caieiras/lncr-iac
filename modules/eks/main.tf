@@ -235,7 +235,7 @@ resource "aws_security_group" "eks_nodes_sg" {
 # KMS Key
 #######################################
 resource "aws_kms_alias" "eks_key_alias" {
-  name          = "alias/${var.prefix_name}-${var.environment}-kms-"
+  name          = "alias/${var.prefix_name}-${var.environment}-eks-kms"
   target_key_id = aws_kms_key.eks_key.id
 }
 
