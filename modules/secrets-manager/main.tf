@@ -47,19 +47,20 @@ locals {
 resource "aws_secretsmanager_secret" "app_secrets" {
   for_each = local.app_secrets
   
-  name                    = "${var.prefix_name}-${var.environment_name}-${each.key}"
+  name                    = "${each.key}-${var.environment_name}-secrets"
   description             = "Secrets for ${each.key} application"
   recovery_window_in_days = var.recovery_window_in_days
   kms_key_id              = var.kms_key_id
 
   tags = {
-    Name        = "${var.prefix_name}-${var.environment_name}-${each.key}"
+    Name        = "${each.key}-${var.environment_name}-secrets"
     Environment = var.environment_name
     Application = each.key
     Owner       = "Fiap"
     CostCenter  = "FinOps"
   }
 }
+
 
 resource "aws_secretsmanager_secret_version" "app_secrets" {
   for_each = local.app_secrets
