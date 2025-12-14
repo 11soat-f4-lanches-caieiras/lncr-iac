@@ -74,7 +74,4 @@ resource "aws_secretsmanager_secret_version" "app_secrets" {
   secret_id     = aws_secretsmanager_secret.app_secrets[each.key].id
   secret_string = jsonencode(each.value)
   
-  lifecycle {
-    ignore_changes = all
-  }
 }
