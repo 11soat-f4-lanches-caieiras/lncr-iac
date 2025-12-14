@@ -27,6 +27,10 @@ resource "aws_fsx_openzfs_file_system" "main" {
     Owner       = "Fiap"
     CostCenter  = "FinOps"
   }
+  
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 #========================================================================================#

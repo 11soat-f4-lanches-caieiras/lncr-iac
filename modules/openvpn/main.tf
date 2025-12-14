@@ -251,7 +251,7 @@ resource "aws_instance" "OpenVPN" {
   user_data = data.template_file.user_data.rendered
 
   lifecycle {
-    ignore_changes = [ami]
+    ignore_changes = all
   }
 }
 

@@ -119,6 +119,18 @@ module "api_gateway" {
 }
 
 #========================================================================================#
+#                              SECURITY GROUP MODULE                                    #
+#========================================================================================#
+
+module "security_group" {
+  source = "./modules/security-group"
+
+  prefix_name      = local.prefix_name
+  environment_name = local.environment_name
+  vpc_id           = module.vpc.vpc_id
+}
+
+#========================================================================================#
 #                                ECR MODULE                                             #
 #========================================================================================#
 
@@ -187,6 +199,13 @@ module "secrets_manager" {
   mercadopago_pos_id = var.mercadopago_pos_id
   mercadopago_expiration_time = var.mercadopago_expiration_time
   mercadopago_webhook_secret = var.mercadopago_webhook_secret
+  lncr_oauth_secret_key = var.lncr_oauth_secret_key
+  lncr_oauth_admin_client_id = var.lncr_oauth_admin_client_id
+  lncr_oauth_admin_client_secret = var.lncr_oauth_admin_client_secret
+  lncr_oauth_monitor_client_id = var.lncr_oauth_monitor_client_id
+  lncr_oauth_monitor_client_secret = var.lncr_oauth_monitor_client_secret
+  lncr_oauth_totem_client_id = var.lncr_oauth_totem_client_id
+  lncr_oauth_totem_client_secret = var.lncr_oauth_totem_client_secret
 }
 
 #========================================================================================#

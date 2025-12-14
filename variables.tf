@@ -399,3 +399,53 @@ variable "mercadopago_webhook_secret" {
   default     = ""
   sensitive   = true
 }
+
+# OAuth variables
+variable "lncr_oauth_secret_key" {
+  description = "LNCR OAuth Secret Key"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "lncr_oauth_admin_client_id" {
+  description = "LNCR OAuth Admin Client ID"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "lncr_oauth_admin_client_secret" {
+  description = "LNCR OAuth Admin Client Secret"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "lncr_oauth_monitor_client_id" {
+  description = "LNCR OAuth Monitor Client ID"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "lncr_oauth_monitor_client_secret" {
+  description = "LNCR OAuth Monitor Client Secret"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "lncr_oauth_totem_client_id" {
+  description = "LNCR OAuth Totem Client ID"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "lncr_oauth_totem_client_secret" {
+  description = "LNCR OAuth Totem Client Secret"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
