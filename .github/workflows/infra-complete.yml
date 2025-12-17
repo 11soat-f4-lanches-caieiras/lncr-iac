@@ -2,6 +2,8 @@ name: Complete Infrastructure
 
 env:
   TERRAFORM_VERSION: 1.5.7
+  ALB_NAME: ${{ vars.ALB_NAME }}
+  FUNCTION_NAME: ${{ vars.LNCR_FUNCTION_NAME }}
 
 on:
 #   push:
@@ -21,7 +23,6 @@ on:
   workflow_dispatch:
 
   # workflow_call:
-
 jobs:
   complete-infra:
     name: Complete Infrastructure Setup
