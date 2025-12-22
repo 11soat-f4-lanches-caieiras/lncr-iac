@@ -1,0 +1,124 @@
+name: Infra Base
+
+env:
+  TERRAFORM_VERSION: 1.5.7
+
+on:
+  pull_request:
+    branches: [ develop ]
+    paths:
+      - modules/ecr/**
+      - modules/eks/**
+      - modules/secrets_manager/**
+      - modules/fsx_openzfs/**
+      - modules/openvpn/**
+      - modules/lambda/**
+      - modules/alb-controller/**
+      - prd.tfvars
+      - .github/workflows/infra-base.yml
+      - locals.tf
+      - main.tf
+      - outputs.tf
+      - providers.tf
+      - variables.tf
+  workflow_dispatch:
+
+
+jobs:
+  deploy-base:
+    name: Deploy Base Infrastructure
+    runs-on: codebuild-github-lncr-iac-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+    - name: Deploy Base Infrastructure
+      run: |
+        terraform init
+        terraform apply \
+          -target=module.vpc \
+          -target=module.eks \
+          -target=module.ecr \
+          -target=module.secrets_manager \
+          -target=module.secrets-provider \
+          -target=module.alb_controller \
+          -target=module.fsx_openzfs \
+          -target=module.openvpn \
+          -target=module.lambda \
+          -var="mongodb_uri=${{ secrets.MONGODB_URI }}" \
+          -var="food_item_postgres_url=${{ secrets.FOOD_ITEM_POSTGRES_URL }}" \
+          -var="food_item_postgres_user=${{ secrets.FOOD_ITEM_POSTGRES_USER }}" \
+          -var="food_item_postgres_password=${{ secrets.FOOD_ITEM_POSTGRES_PASSWORD }}" \
+          -var="kitchen_order_postgres_url=${{ secrets.KITCHEN_ORDER_POSTGRES_URL }}" \
+          -var="kitchen_order_postgres_user=${{ secrets.KITCHEN_ORDER_POSTGRES_USER }}" \
+          -var="kitchen_order_postgres_password=${{ secrets.KITCHEN_ORDER_POSTGRES_PASSWORD }}" \
+          -var="notification_postgres_url=${{ secrets.NOTIFICATION_POSTGRES_URL }}" \
+          -var="notification_postgres_user=${{ secrets.NOTIFICATION_POSTGRES_USER }}" \
+          -var="notification_postgres_password=${{ secrets.NOTIFICATION_POSTGRES_PASSWORD }}" \
+          -var="payment_postgres_url=${{ secrets.PAYMENT_POSTGRES_URL }}" \
+          -var="payment_postgres_user=${{ secrets.PAYMENT_POSTGRES_USER }}" \
+          -var="payment_postgres_password=${{ secrets.PAYMENT_POSTGRES_PASSWORD }}" \
+          -var="customer_order_postgres_url=${{ secrets.CUSTOMER_ORDER_POSTGRES_URL }}" \
+          -var="customer_order_postgres_user=${{ secrets.CUSTOMER_ORDER_POSTGRES_USER }}" \
+          -var="customer_order_postgres_password=${{ secrets.CUSTOMER_ORDER_POSTGRES_PASSWORD }}" \
+          -var="customer_external_url=${{ secrets.CUSTOMER_EXTERNAL_URL }}" \
+          -var="food_item_external_url=${{ secrets.FOOD_ITEM_EXTERNAL_URL }}" \
+          -var="mercadopago_oauth_url=${{ secrets.MERCADOPAGO_OAUTH_URL }}" \
+          -var="mercadopago_orders_url=${{ secrets.MERCADOPAGO_ORDERS_URL }}" \
+          -var="mercadopago_client_id=${{ secrets.MERCADOPAGO_CLIENT_ID }}" \
+          -var="mercadopago_secret_id=${{ secrets.MERCADOPAGO_SECRET_ID }}" \
+          -var="mercadopago_pos_id=${{ secrets.MERCADOPAGO_POS_ID }}" \
+          -var="mercadopago_expiration_time=${{ secrets.MERCADOPAGO_EXPIRATION_TIME }}" \
+          -var="mercadopago_webhook_secret=${{ secrets.MERCADOPAGO_WEBHOOK_SECRET }}" \
+          -var="lncr_oauth_secret_key=${{ secrets.LNCR_OAUTH_SECRET_KEY }}" \
+          -var="lncr_oauth_admin_client_id=${{ secrets.LNCR_OAUTH_ADMIN_CLIENT_ID }}" \
+          -var="lncr_oauth_admin_client_secret=${{ secrets.LNCR_OAUTH_ADMIN_CLIENT_SECRET }}" \
+          -var="lncr_oauth_monitor_client_id=${{ secrets.LNCR_OAUTH_MONITOR_CLIENT_ID }}" \
+          -var="lncr_oauth_monitor_client_secret=${{ secrets.LNCR_OAUTH_MONITOR_CLIENT_SECRET }}" \
+          -var="lncr_oauth_totem_client_id=${{ secrets.LNCR_OAUTH_TOTEM_CLIENT_ID }}" \
+          -var="lncr_oauth_totem_client_secret=${{ secrets.LNCR_OAUTH_TOTEM_CLIENT_SECRET }}" \
+          -var-file="prd.tfvars" \
+          -auto-approve
+          
+    # - name: Trigger lncr-app deployment
+    #   uses: peter-evans/repository-dispatch@v2
+    #   with:
+    #     token: ${{ secrets.REPO_TOKEN}}
+    #     repository: 11soat-f3-lanches-caieiras/lncr-app
+    #     event-type: infra-base-completed
+    #     client-payload: |
+    #       {
+    #         "branch": "${{ github.ref_name }}",
+    #         "commit": "${{ github.sha }}"
+    #       }
+          
+    # - name: Trigger database deployment
+    #   uses: peter-evans/repository-dispatch@v2
+    #   if: github.event_name == 'workflow_dispatch'
+    #   with:
+    #     token: ${{ secrets.REPO_TOKEN}}
+    #     repository: 11soat-f3-lanches-caieiras/lncr-database
+    #     event-type: infra-base-completed
+    #     client-payload: |
+    #       {
+    #         "branch": "${{ github.ref_name }}",
+    #         "commit": "${{ github.sha }}"
+    #       }
+          
+    # - name: Trigger custom-authorizer deployment
+    #   uses: peter-evans/repository-dispatch@v2
+    #   if: github.event_name == 'workflow_dispatch'
+    #   with:
+    #     token: ${{ secrets.REPO_TOKEN}}
+    #     repository: 11soat-f3-lanches-caieiras/lncr-custom-authorizer
+    #     event-type: infra-base-completed
+    #     client-payload: |
+    #       {
+    #         "branch": "${{ github.ref_name }}",
+    #         "commit": "${{ github.sha }}"
+    #       }
