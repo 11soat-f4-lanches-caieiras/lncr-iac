@@ -4,7 +4,7 @@
 
 Este repositório contém a infraestrutura completa como código para o projeto Lanches Caieiras (lncr), implementando uma arquitetura moderna e escalável na AWS usando Terraform. A solução inclui VPC, EKS, OpenVPN, API Gateway, ECR, CodeBuild e outros serviços essenciais.
 
-> **📚 Contexto Acadêmico**: Este repositório faz parte dos entregáveis do trabalho da **Fase 3** do curso de **Pós-graduação em Software Architecture** da **FIAP**, demonstrando a aplicação prática de conceitos de arquitetura de software, infraestrutura como código e DevOps em um ambiente cloud-native.
+> **📚 Contexto Acadêmico**: Este repositório faz parte dos entregáveis do trabalho da **Fase 4** do curso de **Pós-graduação em Software Architecture** da **FIAP**, demonstrando a aplicação prática de conceitos de arquitetura de software, infraestrutura como código e DevOps em um ambiente cloud-native.
 
 ## 📋 Índice
 
@@ -103,15 +103,14 @@ lncr-iac/
 
 ### Infra Base Workflow
 **Arquivo**: `.github/workflows/infra-base.yml`
-- **Trigger**: Push para branch `develop` ou manual
+- **Trigger**: Manual (workflow_dispatch)
 - **Recursos**: VPC, EKS, ECR, Secrets Manager, FSx, OpenVPN, Lambda
 - **Runner**: CodeBuild personalizado
-- **Integração**: Dispara deploys em outros repositórios
-
+  
 ### Infra Complete Workflow
 **Arquivo**: `.github/workflows/infra-complete.yml`
-- **Trigger**: Push para `develop`, repository_dispatch ou manual
-- **Recursos**: API Gateway com integrações NLB e Lambda
+- **Trigger**: Manual (workflow_dispatch)
+- **Recursos**: API Gateway com integrações ALB e Lambda
 - **Dependências**: Requer infraestrutura base já implantada
 
 ### Configuração de Secrets
